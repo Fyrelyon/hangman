@@ -6,6 +6,7 @@
 ###################################################################################
 import time
 import random
+import os
 
 def hangman():
     print("   _   _                                         ")
@@ -18,7 +19,7 @@ def hangman():
     print("                     |___/                       ")
 
     print("")
-    start = input("[Cliquez ENTER pour continuer...]")
+    start = input("[Click ENTER to continue...]")
 
 def show_credits():
     print("    _____                         ____                 ")
@@ -28,27 +29,38 @@ def show_credits():
     print("  | |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |   ")
     print("   \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   ")
     print("")
-    print("Écrivain: Gavin Bernard")
-    print("Jour D'Achèvement: 12/xx/2017")
+    print("Author: Gavin Bernard")
+    print("Completion Date: 12/xx/2017")
     
 def get_puzzle():
-    choice = ["omelette du fromage", "le lundi", "bonjour","salut"
-              ,"baguette","parapluie","les gants","le sac","baladeur"
-              ,"agenda","le portefeuille","les bequilles","du papier bulle"
-              ,"le bus","le bateau a voile"]
-    return choice[random.randint(0,len(choice))]
+    file_names = os.listdir("puzzles")
+
+    for i, f in enumerate(file_names):
+        print(str(i+1) + ") " + f[0:len(f)-4])
+
+    choice = input("Which list would you like? ")
+    choice = int(choice) - 1
+
+    file = "puzzles/" + file_names[choice]
+    print("")
+
+    with open(file, 'r') as f:
+        lines = f.read().splitlines()
+
+    puzzle = random.choice(lines[1:])
+    return puzzle
 
 def friendly():
     while True:
         print("")
-        kid = input("Est-ce jeu pour les enfants? (o/n): ")
-        if kid == 'o' or kid == 'oui':
+        kid = input("Is this game child friendly? (y/n): ")
+        if kid == 'y' or kid == 'yes':
             return True
-        if kid == 'n' or kid == 'non':
+        if kid == 'n' or kid == 'no':
             return False
         else:
             print("")
-            print("Écrivez \"o\" ou \"n\", s'il vous plait.")
+            print("Please type \"yes\" or \"no\".")
     
 def get_solved(puzzle, guesses):
     solved = ""
@@ -65,22 +77,22 @@ def get_solved(puzzle, guesses):
 
 def get_guess(guesses):
     while True:
-        guess = input("Devinez: ")
+        guess = input("Guess: ")
 
         if guess.isalpha() and len(guess) == 1:
             if guess.lower() in guesses:
                 print("")
-                print("Cette lettre été choisit!")
+                print("That letter has already been guessed!")
             else: return guess.lower()
 
         print("")
-        print("Réponse incorrect. Essayer encore!")
+        print("Incorrect response, try again!")
 
 def display_board(solved,strikes,misses,kid):
     print("")
-    print("Let Mot: " + solved)
-    print("Résponses des Mauvaisses: " + misses)
-    print("Résponses Restants: " + str(strikes))
+    print("Solved: " + solved)
+    print("Misses: " + misses)
+    print("Strikes: " + str(strikes))
 
     h1 = ""
     h2 = ""
@@ -136,27 +148,28 @@ def display_board(solved,strikes,misses,kid):
 
     print("")
 
-def show_result(strikes,limit):
+def show_result(strikes,limit,puzzle):
     if (strikes >= limit):
-        print("Tu perds! Plus de chance la prochaine fois!")
+        print("You lose! The answer was " + puzzle + "!")
     else:
-        print("Tu gagnes! Toutes mes félicitations!")
+        print("You win! Congratulations!")
 
 def play_again():
     while True:
-        decision = input("Veux-tu jouer à encore? (o/n): ")
+        decision = input("Would you like to play again?? (y/n): ")
 
-        if decision == 'n' or decision == 'non':
+        if decision == 'n' or decision == 'no':
             return False
 
-        if decision == 'o' or decision == 'oui':
+        if decision == 'y' or decision == 'yes':
             return True
 
         else:
-            print("Écrivez \"o\" ou \"n\", s'il vous plait.")
+            print("Please write \"yes\" or \"no\".")
             print("")
 def play():
     kid = friendly()
+    print("")
     puzzle = get_puzzle()
     guesses = ""
     solved = get_solved(puzzle,guesses)
@@ -170,7 +183,7 @@ def play():
     while solved != puzzle and strikes < limit:
         letter = get_guess(guesses)
 
-        if letter not in puzzle:
+        if letter.lower() not in puzzle:
             strikes += 1
             misses += letter + " "
 
@@ -178,7 +191,7 @@ def play():
         solved = get_solved(puzzle, guesses)
         display_board(solved,strikes,misses,kid)
 
-    show_result(strikes,limit)
+    show_result(strikes,limit,puzzle)
 
 #This code is the start of the actual game itself.
 
