@@ -1,0 +1,21 @@
+Dog Breeds
+alaskan malamute
+australian shepherd
+beagle
+boxer
+bulldog
+chihuahua
+dachshund
+doberman
+english mastiff
+german shepherd
+golden retriever
+great dane
+greyhound
+labrador retriever
+pit bull
+poodle
+rottweiler
+saint bernard
+siberian husky
+yorkshire terrier

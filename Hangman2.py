@@ -8,27 +8,19 @@ import time
 import random
 import os
 
-def hangman():
-    print("   _   _                                         ")
-    print("  | | | |                                        ")
-    print("  | |_| | __ _ _ __   __ _ _ __ ___   __ _ _ __  ")
-    print("  |  _  |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ ")
-    print("  | | | | (_| | | | | (_| | | | | | | (_| | | | |")
-    print("  |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|")
-    print("                      __/ |                      ")
-    print("                     |___/                       ")
-
+def start_screen():
+    file = open('art/start.txt', 'r')
+    contents = file.read()
+    print(contents)
+    
     print("")
     start = input("[Click ENTER to continue...]")
 
 def show_credits():
-    print("    _____                         ____                 ")
-    print("   / ____|                       / __ \                ")
-    print("  | |  __  __ _ _ __ ___   ___  | |  | |_   _ ___ _ __ ")
-    print("  | | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__|")
-    print("  | |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |   ")
-    print("   \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   ")
-    print("")
+    file = open("art/credits.txt", 'r')
+    contents = file.read()
+    print(contents)
+    
     print("Author: Gavin Bernard")
     print("Completion Date: 12/xx/2017")
     
@@ -38,6 +30,7 @@ def get_puzzle():
     for i, f in enumerate(file_names):
         print(str(i+1) + ") " + f[0:len(f)-4])
 
+    print("")
     choice = input("Which list would you like? ")
     choice = int(choice) - 1
 
@@ -197,7 +190,7 @@ def play():
 
 playing = True
 
-hangman()
+start_screen()
 
 while playing:
     play()

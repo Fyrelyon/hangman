@@ -1,0 +1,21 @@
+Color Names
+azure
+black
+blue
+brown
+chartreuse
+cyan
+gray
+green
+indigo
+magenta
+orange
+pink
+purple
+red
+rose
+teal
+vermilion
+violet
+white
+yellow

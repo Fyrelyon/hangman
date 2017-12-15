@@ -1,11 +1,21 @@
 Fox Species
-red
-fennec
 arctic
-culpeo
-gray
-tibetan sand
+bat-eared
+bengal
+cape
 corsac
-bat-eated
+crab-eating
+culpeo
+darwin's
+ethiopian wolf
+falklands islands
+fennec
+gray
+island
 kit
+pale
 pampas
+red
+simien jackal
+south american gray
+tibetan sand
